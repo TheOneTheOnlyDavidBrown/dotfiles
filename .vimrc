@@ -53,6 +53,7 @@ Plugin 'isRuslan/vim-es6'
 Plugin 'DavidEGx/ctrlp-smarttabs'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'reewr/vim-monokai-phoenix'
+Plugin 'tpope/vim-surround'
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
