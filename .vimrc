@@ -46,7 +46,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 " ----- Syntax plugins ------------------------------------------------
 Plugin 'jez/vim-c0'
 Plugin 'jez/vim-ispc'
-Plugin 'kchmck/vim-coffee-script'
+"Plugin 'kchmck/vim-coffee-script'
 
 Plugin 'mattn/emmet-vim'
 Plugin 'isRuslan/vim-es6'
@@ -54,14 +54,15 @@ Plugin 'DavidEGx/ctrlp-smarttabs'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'reewr/vim-monokai-phoenix'
 Plugin 'tpope/vim-surround'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'ap/vim-css-color'
+" let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
 "Plugin 'ntpeters/vim-better-whitespace'
-" Easily surround chunks of text
-"Plugin 'tpope/vim-surround'
 " Align CSV files at commas, align Markdown tables, and more
-"Plugin 'godlygeek/tabular'
+Plugin 'godlygeek/tabular'
 " Automaticall insert the closing HTML tag
 "Plugin 'HTML-AutoCloseTag'
 " Make tmux look like vim-airline (read README for extra instructions)
@@ -70,7 +71,7 @@ Plugin 'tpope/vim-surround'
 "Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'digitaltoad/vim-jade'
 "Plugin 'tpope/vim-liquid'
-"Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'cakebaker/scss-syntax.vim'
 
 call vundle#end()
 
@@ -98,8 +99,7 @@ set background=dark
 "let g:solarized_termcolors=256
 
 " Set the colorscheme
-colorscheme monokai 
-
+colorscheme molokai
 
 " ----- bling/vim-airline settings -----
 " Always show statusbar
@@ -164,10 +164,10 @@ augroup mySyntastic
     augroup mydelimitMate
       au!
         au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-	  au FileType tex let b:delimitMate_quotes = ""
-	    au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-	      au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-	augroup END
+    au FileType tex let b:delimitMate_quotes = ""
+      au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+        au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+  augroup END
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git|target'
 
 filetype plugin indent on
