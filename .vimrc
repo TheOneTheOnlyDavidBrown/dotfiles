@@ -57,6 +57,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ap/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
+Plugin 'rking/ag.vim'
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
@@ -99,7 +100,7 @@ set background=dark
 "let g:solarized_termcolors=256
 
 " Set the colorscheme
-colorscheme molokai
+colorscheme Monokai
 
 " ----- bling/vim-airline settings -----
 " Always show statusbar
@@ -168,7 +169,7 @@ augroup mySyntastic
       au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
         au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
   augroup END
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git|target'
+let g:ctrlp_custom_ignore = 'node_modules/|DS_Store/|git|target/|tmp\|tmp/'
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -180,3 +181,26 @@ set expandtab
 set autoread
 
 set backupcopy=yes
+set nowrap
+let mapleader = ","
+nmap <leader>ne :NERDTree<cr>
+nmap <leader>ns :NERDTreeToggle<cr>
+nmap <C-S-Up> :m-2<cr>
+nmap <C-S-Down> :m+<cr>
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+if executable('ag')
+      " Use ag over grep
+      set grepprg=ag\ --nogroup\ --nocolor
+      
+      " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+      " let g:ctrlp_user_command = 'ag %s -l --nocolor -g "'
+     
+      " ag is fast enough that CtrlP doesn't need to cache
+      " let g:ctrlp_use_caching = 0
+endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+set relativenumber
