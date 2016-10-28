@@ -1,4 +1,3 @@
-
 " File: .vimrc
 " Author: Jake Zimmerman <jake@zimmerman.io>
 " Modified by: David Brown
@@ -209,3 +208,4 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 set relativenumber
 
 let g:move_key_modifier = 'C'
+set paste
