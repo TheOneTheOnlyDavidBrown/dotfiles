@@ -1,3 +1,4 @@
+
 " File: .vimrc
 " Author: Jake Zimmerman <jake@zimmerman.io>
 " Modified by: David Brown
@@ -58,6 +59,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'ap/vim-css-color'
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
 Plugin 'rking/ag.vim'
+Plugin 'matze/vim-move'
+Plugin 'maksimr/vim-jsbeautify'
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
@@ -131,44 +134,44 @@ let g:nerdtree_tabs_open_on_console_startup = 1
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
 augroup mySyntastic
-  au!
+    au!
     au FileType tex let b:syntastic_mode = "passive"
-    augroup END
+augroup END
 
 
-    " ----- xolox/vim-easytags settings -----
-    " Where to look for tags files
-    set tags=./tags;,~/.vimtags
-    " Sensible defaults
-    let g:easytags_events = ['BufReadPost', 'BufWritePost']
-    let g:easytags_async = 1
-    let g:easytags_dynamic_files = 2
-    let g:easytags_resolve_links = 1
-    let g:easytags_suppress_ctags_warning = 1
+" ----- xolox/vim-easytags settings -----
+" Where to look for tags files
+set tags=./tags;,~/.vimtags
+" Sensible defaults
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
 
-    " ----- majutsushi/tagbar settings -----
-    " Open/close tagbar with \b
-    nmap <silent> <leader>b :TagbarToggle<CR>
-    " Uncomment to open tagbar automatically whenever possible
-    "autocmd BufEnter * nested :call tagbar#autoopen(0)
-
-
-    " ----- airblade/vim-gitgutter settings -----
-    " Required after having changed the colorscheme
-    hi clear SignColumn
-    " In vim-airline, only display "hunks" if the diff is non-zero
-    let g:airline#extensions#hunks#non_zero_only = 1
+" ----- majutsushi/tagbar settings -----
+" Open/close tagbar with \b
+nmap <silent> <leader>b :TagbarToggle<CR>
+" Uncomment to open tagbar automatically whenever possible
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 
-    " ----- Raimondi/delimitMate settings -----
-    let delimitMate_expand_cr = 1
-    augroup mydelimitMate
-      au!
-        au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+" ----- airblade/vim-gitgutter settings -----
+" Required after having changed the colorscheme
+hi clear SignColumn
+" In vim-airline, only display "hunks" if the diff is non-zero
+let g:airline#extensions#hunks#non_zero_only = 1
+
+
+" ----- Raimondi/delimitMate settings -----
+let delimitMate_expand_cr = 1
+augroup mydelimitMate
+    au!
+    au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
     au FileType tex let b:delimitMate_quotes = ""
-      au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-        au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-  augroup END
+    au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+    au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+augroup END
 let g:ctrlp_custom_ignore = 'node_modules/|DS_Store/|git|target/|tmp\|tmp/'
 
 filetype plugin indent on
@@ -185,22 +188,24 @@ set nowrap
 let mapleader = ","
 nmap <leader>ne :NERDTree<cr>
 nmap <leader>ns :NERDTreeToggle<cr>
-nmap <C-S-Up> :m-2<cr>
-nmap <C-S-Down> :m+<cr>
+"nmap <C-S-Up> :m-2<cr>
+"nmap <C-S-Down> :m+<cr>
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 if executable('ag')
-      " Use ag over grep
-      set grepprg=ag\ --nogroup\ --nocolor
-      
-      " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-      " let g:ctrlp_user_command = 'ag %s -l --nocolor -g "'
-     
-      " ag is fast enough that CtrlP doesn't need to cache
-      " let g:ctrlp_use_caching = 0
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    " let g:ctrlp_user_command = 'ag %s -l --nocolor -g "'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    " let g:ctrlp_use_caching = 0
 endif
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 set relativenumber
+
+let g:move_key_modifier = 'C'
