@@ -1,3 +1,4 @@
+
 " File: .vimrc
 " Author: Jake Zimmerman <jake@zimmerman.io>
 " Modified by: David Brown
@@ -29,7 +30,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 
 " ----- Working with Git ----------------------------------------------
@@ -75,6 +76,7 @@ Plugin 'godlygeek/tabular'
 "Plugin 'digitaltoad/vim-jade'
 "Plugin 'tpope/vim-liquid'
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'paradigm/vim-multicursor'
 
 call vundle#end()
 
@@ -126,7 +128,8 @@ let g:airline#extensions#tabline#enabled = 1
 " Open/close NERDTree Tabs with \t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
-let g:nerdtree_tabs_open_on_console_startup = 1
+" let g:nerdtree_tabs_open_on_console_startup = 1
+let g:NERDTreeWinPos = "right"
 
 
 " ----- scrooloose/syntastic settings -----
@@ -171,7 +174,11 @@ augroup mydelimitMate
     au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
     au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
-let g:ctrlp_custom_ignore = 'node_modules/|DS_Store/|git|target/|tmp\|tmp/'
+if exists("g:ctrlp_user_command")
+  unlet g:ctrlp_user_command
+endif
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/target,*/node_modules
+" let g:ctrlp_custom_ignore = 'node_modules/|DS_Store/|git|target/|tmp\|tmp/'
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -205,7 +212,39 @@ endif
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-set relativenumber
+" set relativenumber
 
 let g:move_key_modifier = 'C'
 set paste
+let g:ctrlp_max_files=0     
+autocmd BufWritePre *.js :%s/\s\+$//e
+autocmd BufWritePre *.less :%s/\s\+$//e
+autocmd BufWritePre *.java :%s/\s\+$//e
+autocmd BufWritePre *.html :%s/\s\+$//e
+
+let g:formatterpath = ['C:\Users\david\dev\zenig4\Zenig-web\zenig\src\main\webapp\app']
+
+
+" beautify
+map <c-f> :call JsBeautify()<cr>
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for json
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+nnoremap <S-u> :<c-u>call MultiCursorPlaceCursor()<cr>
+
+set colorcolumn=80,120
+set splitright
+
+" the amount of lines kept when scolling to the bottom. otherwise it only shows the last line
+set scrolloff=20
