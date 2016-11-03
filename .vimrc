@@ -217,10 +217,7 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 let g:move_key_modifier = 'C'
 set paste
 let g:ctrlp_max_files=0     
-autocmd BufWritePre *.js :%s/\s\+$//e
-autocmd BufWritePre *.less :%s/\s\+$//e
-autocmd BufWritePre *.java :%s/\s\+$//e
-autocmd BufWritePre *.html :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
 
 let g:formatterpath = ['C:\Users\david\dev\zenig4\Zenig-web\zenig\src\main\webapp\app']
 
