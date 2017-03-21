@@ -61,6 +61,8 @@ Plugin 'ap/vim-css-color'
 Plugin 'rking/ag.vim'
 Plugin 'matze/vim-move'
 Plugin 'maksimr/vim-jsbeautify'
+Plugin 'honza/vim-snippets'
+Plugin 'scrooloose/nerdcommenter'
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
@@ -77,6 +79,8 @@ Plugin 'godlygeek/tabular'
 "Plugin 'tpope/vim-liquid'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'paradigm/vim-multicursor'
+Plugin 'craigemery/vim-autotag'
+Plugin 'ervandew/supertab'
 
 call vundle#end()
 
@@ -93,6 +97,7 @@ set hlsearch
 syntax on
 
 set mouse=a
+let mapleader = ","
 
 " ----- Plugin-Specific Settings --------------------------------------
 
@@ -177,31 +182,22 @@ augroup END
 if exists("g:ctrlp_user_command")
   unlet g:ctrlp_user_command
 endif
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/target,*/node_modules,*/tmp
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/target,*/node_modules,*/tmp,*/api-docs,*/api-docs/*,*/api-docs*,*bundle*
 " let g:ctrlp_custom_ignore = 'node_modules/|DS_Store/|git|target/|tmp\|tmp/'
 
 filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab
-set autoread
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 set backupcopy=yes
 set nowrap
-let mapleader = ","
-nmap <leader>ne :NERDTree<cr>
-nmap <leader>ns :NERDTreeToggle<cr>
 "nmap <C-S-Up> :m-2<cr>
 "nmap <C-S-Down> :m+<cr>
 
-let g:ackprg = 'ag --nogroup --nocolor --column'
 
 if executable('ag')
     " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
+    "'ag --nogroup --nocolor --column --ignore backbone --ignore node_modules --ignore bundle --ignore "*/api-docs/*" --ignore kendo'
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
 
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
     " let g:ctrlp_user_command = 'ag %s -l --nocolor -g "'
@@ -210,13 +206,13 @@ if executable('ag')
     " let g:ctrlp_use_caching = 0
 endif
 
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " set relativenumber
 
 let g:move_key_modifier = 'C'
 set paste
-let g:ctrlp_max_files=0     
+let g:ctrlp_max_files=0
+
+" removes trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
 let g:formatterpath = ['C:\Users\david\dev\zenig4\Zenig-web\zenig\src\main\webapp\app']
@@ -235,7 +231,7 @@ autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
-nnoremap <Tab> :bnext<CR>
+" nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
 nnoremap <S-u> :<c-u>call MultiCursorPlaceCursor()<cr>
@@ -245,3 +241,16 @@ set splitright
 
 " the amount of lines kept when scolling to the bottom. otherwise it only shows the last line
 set scrolloff=20
+
+" allows for undo after :bnext, :bprevious (which is set to tab/shift tab above)
+set hidden
+
+
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+set ff=unix
+set list
+au BufRead,BufNewFile *.js set fileformat=unix
+au BufRead,BufNewFile *.html set fileformat=unix
+
+se cursorline
