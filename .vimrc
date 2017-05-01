@@ -81,6 +81,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'paradigm/vim-multicursor'
 Plugin 'craigemery/vim-autotag'
 Plugin 'ervandew/supertab'
+Plugin 'leafgarland/typescript-vim'
 
 call vundle#end()
 
@@ -252,5 +253,6 @@ set ff=unix
 set list
 au BufRead,BufNewFile *.js set fileformat=unix
 au BufRead,BufNewFile *.html set fileformat=unix
+au BufRead,BufNewFile *.md set wrap nolist linebreak
 
 se cursorline
