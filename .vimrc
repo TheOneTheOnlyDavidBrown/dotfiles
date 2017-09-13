@@ -133,6 +133,7 @@ let g:airline#extensions#tabline#enabled = 1
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
+let NERDSpaceDelims=1
 " To have NERDTree always open on startup
 " let g:nerdtree_tabs_open_on_console_startup = 1
 let g:NERDTreeWinPos = "right"
@@ -141,6 +142,11 @@ let g:NERDTreeWinPos = "right"
 " ----- scrooloose/syntastic settings -----
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
+let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
+let g:syntastic_javascript_checkers = ['eslint']
+
+"let g:syntastic_javascript_checkers = []
+"autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') !=# '' ? ['eslint'] : []
 augroup mySyntastic
     au!
     au FileType tex let b:syntastic_mode = "passive"
@@ -183,8 +189,9 @@ augroup END
 if exists("g:ctrlp_user_command")
   unlet g:ctrlp_user_command
 endif
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/target,*/node_modules,*/tmp,*/api-docs,*/api-docs/*,*/api-docs*,*bundle*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/wildfly*,/wildfly*,*wildfly*,*/vendor,*/target,*/node_modules,*/tmp,*/api-docs,*/api-docs/*,*/api-docs*,*bundle*,*/build
 " let g:ctrlp_custom_ignore = 'node_modules/|DS_Store/|git|target/|tmp\|tmp/'
+map <leader>p :CtrlP<CR>
 
 filetype plugin indent on
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -241,7 +248,7 @@ set colorcolumn=80,120
 set splitright
 
 " the amount of lines kept when scolling to the bottom. otherwise it only shows the last line
-set scrolloff=20
+set scrolloff=10
 
 " allows for undo after :bnext, :bprevious (which is set to tab/shift tab above)
 set hidden
@@ -256,3 +263,7 @@ au BufRead,BufNewFile *.html set fileformat=unix
 au BufRead,BufNewFile *.md set wrap nolist linebreak
 
 se cursorline
+noremap <Leader>y "*y
+noremap <Leader>v "*p
+noremap <Leader>Y "+y
+noremap <Leader>V "+p
